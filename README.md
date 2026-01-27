@@ -1,5 +1,5 @@
 # Proyecto Final Python B1
-
+ 
 ### Librerias
 
 Para instalar las librerías necesarias para esta actividad debes ejecutar el siguiente comando en el terminal:
