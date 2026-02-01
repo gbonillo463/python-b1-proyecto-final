@@ -26,9 +26,9 @@ class Bottle(FoodPackage):
 class Glass(FoodPackage):  
 #Write your code here
 	def pack(self):
-		return 'Food Glass Plate'
+		return 'Carton Glass'
 	def material(self):
-		return 'Glass'
+		return 'Carton'
 
 class Box(FoodPackage):  
 #Write your code here
