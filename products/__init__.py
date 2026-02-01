@@ -1,3 +1,3 @@
 #Write your code here
-from . import food_package
-from . import product
+from .food_package import *
+from .product import *
