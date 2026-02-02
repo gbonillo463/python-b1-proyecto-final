@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
-from food_package import Wrapping, Bottle, Glass, Box
-from food_package import FoodPackage
+from .food_package import Wrapping, Bottle, Glass, Box
+from .food_package import FoodPackage
 #Write your code here
 
 class Product(ABC):
