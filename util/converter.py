@@ -14,8 +14,8 @@ class Converter(ABC):
 		for item in objects:
 			print(item.describe())
 
-#	Converter de cajeros, donde usamos el inicializador de la clase Cashier
-#	y devolvemos una lista de todos los cajeros del archivo
+# Converter de cajeros, donde usamos el inicializador de la clase Cashier
+# y devolvemos una lista de todos los cajeros del archivo
 class CashierConverter(Converter):
 	def convert(self, dataframe: pd.DataFrame):
 		cashiers = []
@@ -31,8 +31,8 @@ class CashierConverter(Converter):
 		
 		return cashiers
 
-#	Converter de clientes, donde usamos el inicializador de la clase Costumer
-#	y devolvemos una lista de todos los clientes del archivo
+# Converter de clientes, donde usamos el inicializador de la clase Costumer
+# y devolvemos una lista de todos los clientes del archivo
 class CustomerConverter(Converter):
 	def convert(self, dataframe: pd.DataFrame):
 		customers = []
@@ -47,7 +47,7 @@ class CustomerConverter(Converter):
 		
 		return customers
 
-#	Product map para definir el tipo de producto
+# Product map para definir el tipo de producto
 PRODUCT_MAP = {
 	'hamburgers': Hamburger,
 	'sodas': Soda,
@@ -55,9 +55,9 @@ PRODUCT_MAP = {
 	'happyMeal': HappyMeal
 }
 
-#	Conerter de productos, usando el dataframe y product_type para definir
-#	que clase de procuto iniciamos y devolvemos una lista de todos los 
-#	productos del archivo
+# Conerter de productos, usando el dataframe y product_type para definir
+# que clase de procuto iniciamos y devolvemos una lista de todos los 
+# productos del archivo
 class ProductConverter(Converter):
 	def convert(self, dataFrame: pd.DataFrame, product_type: str):
 		product_class = PRODUCT_MAP[product_type]
