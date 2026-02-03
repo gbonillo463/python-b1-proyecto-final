@@ -10,6 +10,8 @@ class CSVFileManager:
 		change_path = Path(self.path)
 		product_type = change_path.stem
 
+	# 	La función read() devuelve el dataframe y además 
+	#	product_type sacado del nombre del archivo.
 		return dataframe, product_type
 
 	def write(self, dataFrame: pd.DataFrame):
