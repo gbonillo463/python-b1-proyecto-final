@@ -31,7 +31,7 @@ class Soda(Product):
     def __init__(self, id:str, name:str, price:float):
         super().__init__(id, name, price)
     def type(self):
-        return 'Sprite'
+        return 'Soda drink'
     def foodPackage(self):
         return Bottle()
 
@@ -39,7 +39,7 @@ class Drink(Product):
     def __init__(self, id:str, name:str, price:float):
         super().__init__(id, name, price)
     def type(self):
-        return 'Coca-Cola'
+        return 'Drinks'
     def foodPackage(self):
         return Glass()
 
