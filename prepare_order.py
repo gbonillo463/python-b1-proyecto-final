@@ -103,9 +103,117 @@ f.	Agregar productos: Utilizar la instancia la clase 'Order', del paso c y llama
 """
 #Write your code here
 from users import *
+from util import *
+from products import *
+from orders import *
 
-    
+
+# Creamos los bucles para encontrar a cajero y cliente
+def find_cashier_by_dni(cashiers: list[Cashier], dni: str) -> Cashier | None:
+    for cashier in cashiers:
+        if str(cashier.dni) == dni:
+            return cashier
+    return None
+
+def find_customer_by_dni(customers_list: list[Customer], dni: str) -> Customer | None:
+    for customer in customers_list:
+        if str(customer.dni) == dni:
+            return customer
+    return None
+
+# Inicializamos la clase CSVFileManager de cada archivo
+csv_file_cashiers = CSVFileManager('data/cashiers.csv')
+csv_file_customers = CSVFileManager('data/customers.csv')
+csv_file_drinks = CSVFileManager('data/drinks.csv')
+csv_file_hamburguers = CSVFileManager('data/hamburgers.csv')
+csv_file_happyMeal = CSVFileManager('data/happyMeal.csv')
+csv_file_sodas = CSVFileManager('data/sodas.csv')
+
+# Inicializamos la calse Converter de cada archivo
+# De cada inicialización de la clase CVSFileManager, aplicamos
+# el metodo read() para devolver un dataframe para cashier, costumer y 
+# una tupla(dataframe, product_type) para los diferentes productos
+cashier = CashierConverter()
+cashiers_list = cashier.convert(csv_file_cashiers.read()[0])
+customer = CustomerConverter()
+customers_list = customer.convert(csv_file_customers.read()[0])
+product_converter = ProductConverter()
+drink_list = product_converter.convert(csv_file_drinks.read()[0], csv_file_drinks.read()[1])
+hamburguers_list = product_converter.convert(csv_file_hamburguers.read()[0], csv_file_hamburguers.read()[1])
+hapyyMeals_list = product_converter.convert(csv_file_happyMeal.read()[0], csv_file_happyMeal.read()[1])
+sodas_list = product_converter.convert(csv_file_sodas.read()[0], csv_file_sodas.read()[1])
+
+products = []
+
 class PrepareOrder:
- #Write your code here
- pass
+	def __init__(self, 
+			cashiers_list: list[Cashier],
+			customers_list: list[Customer], 
+			drink_list: list[Product],
+			hamburguers_list: list[Product],
+			hapyyMeals_list: list[Product],
+			sodas_list: list[Product]
+		):
+		self.cashiers_list = cashiers_list
+		self.customers_list = customers_list
+		self.drink_list = drink_list
+		self.hamburguers_list = hamburguers_list
+		self.hapyyMeals_list = hapyyMeals_list
+		self.sodas_list = sodas_list
+		
+	# Usamos un bucle para asegurar que el cajero y cliente existen	
+	def select_cashier(self) -> Cashier:
+		cashier_find = None
+		while cashier_find is None:
+			dni_cashier = input('Introduce cashier DNI: ')
+			cashier_find = find_cashier_by_dni(self.cashiers_list, dni_cashier)
+			if cashier_find is None:
+				print("Cajero no válido")
+			else:
+				print(cashier_find.describe())
+		return cashier_find
+	
+	def select_customer(self) -> Customer:	
+		customer_find = None
+		while customer_find is None:
+			dni_customer = input('Introduce costumer DNI: ')
+			customer_find = find_customer_by_dni(self.customers_list, dni_customer)
+			if customer_find is None:
+				print("Cliente no válido")
+			else:
+				print(customer_find.describe())
+		return customer_find
+	
+	# Creamos bucles para la selección de los productos
+	def selecciona_opcion(self):
+		customer_choice = None
+		while customer_choice is None:
+			customer_enter = input(
+				'Selecciona tipo de producto: \n1-Drink\n2-Hamburgers\n3-Happy Meal\n4-Soda'
+				)
+			match customer_choice:
+				case '1':
+					
+				case '2':
+				case '3':
+				case '4':
 
+	# Inicializamos la order
+	def create_order(self) -> Order:
+		# Inicializamos objetos de cashier y customer
+		cashier_find = self.select_cashier()
+		customer_find = self.select_customer()
+		return Order(cashier_find, customer_find)
+
+
+prepare_order = PrepareOrder(
+		cashiers_list, 
+		customers_list, 
+		drink_list,
+		hamburguers_list,
+		hapyyMeals_list,
+		sodas_list		
+		)
+
+order = prepare_order.create_order()
+order.show()
