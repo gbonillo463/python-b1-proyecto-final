@@ -18,7 +18,7 @@ class Converter(ABC):
 # y devolvemos una lista de todos los cajeros del archivo
 class CashierConverter(Converter):
 	def convert(self, dataframe: pd.DataFrame):
-		cashiers = []
+		cashiers: list[Cashier] = []
 		for index, row in dataframe.iterrows():
 			cashier = Cashier(
 					row['dni'],
@@ -35,7 +35,7 @@ class CashierConverter(Converter):
 # y devolvemos una lista de todos los clientes del archivo
 class CustomerConverter(Converter):
 	def convert(self, dataframe: pd.DataFrame):
-		customers = []
+		customers: list[Customer] = []
 		for index, row in dataframe.iterrows():
 			customer = Customer(
 					row['dni'], 
@@ -61,7 +61,7 @@ PRODUCT_MAP = {
 class ProductConverter(Converter):
 	def convert(self, dataFrame: pd.DataFrame, product_type: str):
 		product_class = PRODUCT_MAP[product_type]
-		products = []
+		products: list[Product] = []
 		for index, row in dataFrame.iterrows():
 			product = product_class(
 					row['id'], 
