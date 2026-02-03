@@ -23,7 +23,7 @@ class Hamburger(Product):
     def __init__(self, id:str, name:str, price:float):
         super().__init__(id,name,price)
     def type(self) -> str:
-        return "Hamburguesa"
+        return "Hamburger"
     def foodPackage(self) -> FoodPackage:
         return Wrapping()
         
