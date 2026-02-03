@@ -10,7 +10,7 @@ class Converter(ABC):
 	@abstractmethod
 	def convert(self, dataFrame: pd.DataFrame, *args) -> list:
 		pass  
-	def print(self, objects: list[Product]):
+	def print(self, objects):
 		for item in objects:
 			print(item.describe())
 
