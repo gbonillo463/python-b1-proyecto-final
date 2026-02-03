@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from .file_manager import *
-from products.product import Hamburger, Soda, Drink, HappyMeal
+from products.product import Product, Hamburger, Soda, Drink, HappyMeal
 from users.user import Customer, Cashier
 import pandas as pd
 
@@ -10,7 +10,7 @@ class Converter(ABC):
 	@abstractmethod
 	def convert(self, dataFrame: pd.DataFrame, *args) -> list:
 		pass  
-	def print(self, objects):
+	def print(self, objects: list[Product]):
 		for item in objects:
 			print(item.describe())
 
