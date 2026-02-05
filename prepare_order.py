@@ -140,7 +140,7 @@ customers_list = customer.convert(csv_file_customers.read()[0])
 product_converter = ProductConverter()
 drink_list = product_converter.convert(csv_file_drinks.read()[0], csv_file_drinks.read()[1])
 hamburguers_list = product_converter.convert(csv_file_hamburguers.read()[0], csv_file_hamburguers.read()[1])
-hapyyMeals_list = product_converter.convert(csv_file_happyMeal.read()[0], csv_file_happyMeal.read()[1])
+happyMeals_list = product_converter.convert(csv_file_happyMeal.read()[0], csv_file_happyMeal.read()[1])
 sodas_list = product_converter.convert(csv_file_sodas.read()[0], csv_file_sodas.read()[1])
 
 products = []
@@ -151,14 +151,14 @@ class PrepareOrder:
 			customers_list: list[Customer], 
 			drink_list: list[Product],
 			hamburguers_list: list[Product],
-			hapyyMeals_list: list[Product],
+			happyMeals_list: list[Product],
 			sodas_list: list[Product]
 		):
 		self.cashiers_list = cashiers_list
 		self.customers_list = customers_list
 		self.drink_list = drink_list
 		self.hamburguers_list = hamburguers_list
-		self.hapyyMeals_list = hapyyMeals_list
+		self.happyMeals_list = happyMeals_list
 		self.sodas_list = sodas_list
 		
 	# Usamos un bucle para asegurar que el cajero y cliente existen	
@@ -185,24 +185,30 @@ class PrepareOrder:
 		return customer_find
 	
 	# Creamos bucles para la selección de los productos
-	def selecciona_opcion(self):
+	def select_option(self):
 		customer_choice = None
 		while customer_choice is None:
-			customer_enter = input(
+			customer_choice = input(
 				'Selecciona tipo de producto: \n1-Drink\n2-Hamburgers\n3-Happy Meal\n4-Soda'
 				)
 			match customer_choice:
 				case '1':
-					
+					print(f'Select product ID:\n{product_converter.print(drink_list)}')
 				case '2':
+					print(f'Select product ID:\n{product_converter.print(hamburguers_list)}')
 				case '3':
+					print(f'Select product ID:\n{product_converter.print(happyMeals_list)}')
 				case '4':
+					print(f'Select product ID:\n{product_converter.print(sodas_list)}\n')
+				case _:
+					customer_choice = None
 
 	# Inicializamos la order
 	def create_order(self) -> Order:
 		# Inicializamos objetos de cashier y customer
 		cashier_find = self.select_cashier()
 		customer_find = self.select_customer()
+		self.select_option()
 		return Order(cashier_find, customer_find)
 
 
@@ -211,7 +217,7 @@ prepare_order = PrepareOrder(
 		customers_list, 
 		drink_list,
 		hamburguers_list,
-		hapyyMeals_list,
+		happyMeals_list,
 		sodas_list		
 		)
 
