@@ -121,6 +121,11 @@ def find_customer_by_dni(customers_list: list[Customer], dni: str) -> Customer |
             return customer
     return None
 
+def find_product_by_id(product_list: list[Product], product_id):
+	for product in product_list:
+		if str(product.id) == product_id:
+			return product
+
 # Inicializamos la clase CSVFileManager de cada archivo
 csv_file_cashiers = CSVFileManager('data/cashiers.csv')
 csv_file_customers = CSVFileManager('data/customers.csv')
@@ -185,30 +190,38 @@ class PrepareOrder:
 		return customer_find
 	
 	# Creamos bucles para la selección de los productos
-	def select_option(self):
+	def select_option(self) -> list[Product]:
+		product_list: list[Product]
 		customer_choice = None
 		while customer_choice is None:
 			customer_choice = input(
-				'Selecciona tipo de producto: \n1-Drink\n2-Hamburgers\n3-Happy Meal\n4-Soda'
+				'Selecciona tipo de producto: \n1-Drink\n2-Hamburgers\n3-Happy Meal\n4-Soda\n'
 				)
 			match customer_choice:
 				case '1':
-					print(f'Select product ID:\n{product_converter.print(drink_list)}')
+					id_product = input(f'Selecciona Id del producto: {product_converter.print(drink_list)}')
+					product_list.append(find_product_by_id(drink_list, id_product))
 				case '2':
-					print(f'Select product ID:\n{product_converter.print(hamburguers_list)}')
+					print(f'Selecciona Id del producto: {product_converter.print(hamburguers_list)}')
 				case '3':
-					print(f'Select product ID:\n{product_converter.print(happyMeals_list)}')
+					print(f'Selecciona Id del producto: {product_converter.print(happyMeals_list)}')
 				case '4':
-					print(f'Select product ID:\n{product_converter.print(sodas_list)}\n')
+					print(f'Selecciona Id del producto: {product_converter.print(sodas_list)}\n')
 				case _:
 					customer_choice = None
+					print('Tipo de prodcuto incorrecto')
+
+		return product_list
+
 
 	# Inicializamos la order
 	def create_order(self) -> Order:
 		# Inicializamos objetos de cashier y customer
 		cashier_find = self.select_cashier()
 		customer_find = self.select_customer()
+
 		self.select_option()
+		
 		return Order(cashier_find, customer_find)
 
 
